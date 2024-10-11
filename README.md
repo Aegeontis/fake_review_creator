@@ -29,10 +29,10 @@ execute it (double click / execute from terminal).
 
 ## Building
 
-1. Download and install the [dartsdk](https://dart.dev/get-dart)
+1. Download and install the [flutter sdk](https://docs.flutter.dev/get-started/install)
 2. Clone the repository: `git clone --depth=1 https://github.com/Aegeontis/fake_review_creator`
 3. Change directory: `cd fake_review_creator`
-4. Get the dependencies: `pub get`
+4. Get the dependencies: `flutter pub get`
 5. Depending on your platform run:
    * Linux:
       * `flutter build linux --release`
