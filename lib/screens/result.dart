@@ -1,19 +1,23 @@
+import 'package:fake_review_creator/backend/settings_manager.dart';
 import 'package:fake_review_creator/screens/llm_settings.dart';
 import 'package:flutter/material.dart';
 
 import '/backend/image_processor.dart';
+import '/backend/llm_interface.dart';
 import '/screens/picture_select.dart';
 
 class ResultScreen extends StatefulWidget {
   final Map<String, List<String>>? imageMap;
   late String? llmResponse;
+  final List<String> reviews;
   final String query;
 
   ResultScreen(
       {super.key,
       required this.imageMap,
       required this.llmResponse,
-      required this.query});
+      required this.query,
+      required this.reviews});
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -21,6 +25,7 @@ class ResultScreen extends StatefulWidget {
 
 class _ResultScreenState extends State<ResultScreen> {
   List<String>? displayedImages = [];
+  bool loadingLLMQuery = false;
 
   @override
   void initState() {
@@ -191,10 +196,19 @@ class _ResultScreenState extends State<ResultScreen> {
                 Row(children: [
                   const Spacer(),
                   IconButton(
-                      onPressed: () {
-                        widget.llmResponse = "";
+                      onPressed: () async {
+                        setState(() {
+                          loadingLLMQuery = true;
+                        });
+                        widget.llmResponse = await queryLLM(
+                            await getLLMSettings(),
+                            widget.reviews,
+                            widget.query);
+                        setState(() {
+                          loadingLLMQuery = false;
+                        });
                       },
-                      icon: Icon(Icons.refresh)),
+                      icon: Icon(Icons.refresh, size: 30)),
                   IconButton(
                       onPressed: () => Navigator.push(
                           context,
@@ -204,8 +218,9 @@ class _ResultScreenState extends State<ResultScreen> {
                   // TODO: Add copy implementation
                   IconButton(onPressed: null, icon: Icon(Icons.copy, size: 30)),
                 ]),
-                Expanded(
-                    child: TextFormField(
+                !loadingLLMQuery
+                    ? Expanded(
+                        child: TextFormField(
                         readOnly: true,
                         maxLines: null,
                         expands: true,
@@ -223,11 +238,9 @@ class _ResultScreenState extends State<ResultScreen> {
                               Radius.circular(10),
                             ),
                           ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.white), // Set border color
-                          ),
-                        )))
+                        ),
+                      ))
+                    : const CircularProgressIndicator()
               ])),
         ));
   }

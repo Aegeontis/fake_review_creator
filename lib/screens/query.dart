@@ -21,6 +21,7 @@ class _QueryScreenState extends State<QueryScreen> {
   Map<String, List<String>>? ebayImageMap;
   String parsingAmazonQuery = "waiting";
   String scrapingAmazonReviews = "waiting";
+  List<String> amazonReviewsList = [];
   String queryingLLM = "waiting";
   String? llmResponse;
 
@@ -82,7 +83,7 @@ class _QueryScreenState extends State<QueryScreen> {
             scrapingAmazonReviews = "loading";
           });
           try {
-            final List<String> amazonReviewsList =
+            amazonReviewsList =
                 await getAmazonReviewsList(amazonSettings, itemIDs);
             setState(() {
               scrapingAmazonReviews = "finished";
@@ -121,9 +122,11 @@ class _QueryScreenState extends State<QueryScreen> {
     print("All jobs finished, going to result screen");
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return ResultScreen(
-          imageMap: ebayImageMap,
-          llmResponse: llmResponse,
-          query: widget.searchQuery);
+        imageMap: ebayImageMap,
+        llmResponse: llmResponse,
+        query: widget.searchQuery,
+        reviews: amazonReviewsList,
+      );
     }));
   }
 
