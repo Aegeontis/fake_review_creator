@@ -91,7 +91,7 @@ class _StartScreenState extends State<StartScreen> {
                               backgroundColor:
                                   Theme.of(context).colorScheme.primary,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(10),
                               )),
                           onPressed: searchQuery == ""
                               ? null

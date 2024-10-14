@@ -63,23 +63,18 @@ class _ResultScreenState extends State<ResultScreen> {
                     ? Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         child: Padding(
                             padding: EdgeInsets.all(10),
                             child: GridView.builder(
                               shrinkWrap: true,
-                              // Ensure GridView takes up only the necessary space
                               physics: NeverScrollableScrollPhysics(),
-                              // Disable scrolling
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
-                                // 3 images per row
-                                crossAxisSpacing: 10.0,
-                                // Spacing between images horizontally
-                                mainAxisSpacing:
-                                    10.0, // Spacing between images vertically
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
                               ),
                               itemCount: displayedImages!.length,
                               itemBuilder: (context, index) {
@@ -205,25 +200,28 @@ class _ResultScreenState extends State<ResultScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => const LLMSettingsScreen())),
-                      icon: Icon(Icons.settings)),
-                  IconButton(onPressed: null, icon: Icon(Icons.copy)),
+                      icon: Icon(Icons.settings, size: 30)),
+                  // TODO: Add copy implementation
+                  IconButton(onPressed: null, icon: Icon(Icons.copy, size: 30)),
                 ]),
                 Expanded(
                     child: TextFormField(
                         readOnly: true,
                         maxLines: null,
                         expands: true,
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            fontWeight: FontWeight.bold),
+                        // Set text color to red
                         textAlignVertical: TextAlignVertical.top,
                         initialValue: widget.llmResponse,
-                        decoration: const InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.white), // Set border color
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.white), // Set border color
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.secondary,
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(

@@ -178,7 +178,7 @@ class _QueryScreenState extends State<QueryScreen> {
                     Container(
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.secondary,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -211,7 +211,7 @@ class _QueryScreenState extends State<QueryScreen> {
                     Container(
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.secondary,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -253,13 +253,15 @@ class _QueryScreenState extends State<QueryScreen> {
                             ])),
                     const SizedBox(height: 20),
                     Center(
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                            ),
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                                foregroundColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
                             // TODO: Implement stopping query
                             onPressed: null,
                             child: Padding(
