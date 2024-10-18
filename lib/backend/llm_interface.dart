@@ -82,14 +82,16 @@ Future<void> isolateQueryOpenRouter(SendPort sendPort) async {
       String resultBody =
           responseMap["choices"][0]["message"]["content"].trim();
       if (resultBody.isNotEmpty) {
-        // fix some special chars
         print("LLM Response: Raw response: $resultBody");
+        // fix some special chars
         resultBody = resultBody
             .replaceAll("Ã¶", "ö")
             .replaceAll("Ã¼", "ü")
             .replaceAll("Ã¼", "ä")
             .replaceAll("Ã¤", "ä")
             .replaceAll("Ã", "ß");
+        // remove new lines
+        resultBody = resultBody.replaceAll("\n", " ");
         resultsPort.send(resultBody);
       } else {
         throw Exception("LLM Response: Response didn't include LLM answer");
