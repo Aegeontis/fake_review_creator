@@ -1,6 +1,7 @@
 import 'package:fake_review_creator/backend/settings_manager.dart';
 import 'package:fake_review_creator/screens/llm_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '/backend/image_processor.dart';
 import '/backend/llm_interface.dart';
@@ -216,7 +217,10 @@ class _ResultScreenState extends State<ResultScreen> {
                               builder: (context) => const LLMSettingsScreen())),
                       icon: Icon(Icons.settings, size: 30)),
                   // TODO: Add copy implementation
-                  IconButton(onPressed: null, icon: Icon(Icons.copy, size: 30)),
+                  IconButton(
+                      onPressed: () => Clipboard.setData(
+                          ClipboardData(text: widget.llmResponse ?? "")),
+                      icon: Icon(Icons.copy, size: 30)),
                 ]),
                 !loadingLLMQuery
                     ? Expanded(
