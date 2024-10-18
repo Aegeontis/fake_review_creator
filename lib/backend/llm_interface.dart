@@ -83,6 +83,7 @@ Future<void> isolateQueryOpenRouter(SendPort sendPort) async {
           responseMap["choices"][0]["message"]["content"].trim();
       if (resultBody.isNotEmpty) {
         // fix some special chars
+        print("LLM Response: Raw response: $resultBody");
         resultBody = resultBody
             .replaceAll("Ã¶", "ö")
             .replaceAll("Ã¼", "ü")
