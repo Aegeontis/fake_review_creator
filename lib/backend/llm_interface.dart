@@ -17,7 +17,7 @@ Future<String> queryLLM(Map<String, dynamic> llmSettings, List<String> reviews,
           "\n\n\n\n"
           "${llmSettings["userPrompt"].replaceFirst("[PRODUCT_NAME]", query)}"
           "\n\n"
-          "$reviews";
+          "${reviews.join("\n\n")}";
     case "openRouter":
       isolateInterface = isolateQueryOpenRouter;
       if (llmSettings["accessKey"] == "") {
