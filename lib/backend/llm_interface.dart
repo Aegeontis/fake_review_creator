@@ -88,7 +88,8 @@ Future<void> isolateQueryOpenRouter(SendPort sendPort) async {
             .replaceAll("Ã¶", "ö")
             .replaceAll("Ã¼", "ü")
             .replaceAll("Ã¼", "ä")
-            .replaceAll("Ã¤", "ä");
+            .replaceAll("Ã¤", "ä")
+            .replaceAll("Ã", "ß");
         resultsPort.send(resultBody);
       } else {
         throw Exception("LLM Response: Response didn't include LLM answer");
