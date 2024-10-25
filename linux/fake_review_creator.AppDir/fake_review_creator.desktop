@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Fake review creator
+Exec=fake_review_creator %u
+Icon=app_icon
+Categories=Utility;
